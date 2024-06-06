@@ -7,9 +7,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.util.Properties;
 
 public class Util {
@@ -19,28 +16,6 @@ public class Util {
     public static final String DB_DRIVER = "com.mysql.cj.jdbc.Driver";
     public static final String DB_DIALECT = "org.hibernate.dialect.MySQLDialect";
     private static SessionFactory sessionFactory;
-    private Connection connection = null;
-
-    public Connection getConnection()  {
-
-        try {
-            Class.forName(DB_DRIVER);
-            connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return connection;
-    }
-
-    public void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
